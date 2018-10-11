@@ -34,7 +34,7 @@ services:
     networks:
       - backend
     ports:
-      - "3307:3306"
+      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=rootpassword
     volumes:
