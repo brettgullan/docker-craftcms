@@ -7,6 +7,11 @@ This repo configures a basic web development stack, optimized for PHP/MYSQL and 
 Clone this repo (or copy-paste into an existing project).
 If cloning, delete `.git` directory, then run `git init`.
 
+
+
+We map the entire `./` directory to `/var/www` in both the `apache` and `php` environments.
+We also modify the _default_ web directory from `/var/www/html` to `/var/www/web`, simply to be consistent with out-of-the-box Craft CMS conventions.
+
 # REFERENCES
 
 https://github.com/mzazon/php-apache-mysql-containerized/blob/master/README.md

@@ -9,7 +9,7 @@ services:
     networks:
       - backend
     volumes:
-      - ./web/:/var/www/html/
+      - ./:/var/www/
     container_name: php
 
   apache:
@@ -26,7 +26,7 @@ services:
     ports:
       - "81:80"
     volumes:
-      - ./web/:/var/www/html/
+      - ./web:/var/www/web
     container_name: apache
 
   mysql:
