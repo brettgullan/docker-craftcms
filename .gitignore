@@ -1,0 +1,6 @@
+/.idea
+/craft
+/database
+/storage
+/vendor
+.DS_Store
