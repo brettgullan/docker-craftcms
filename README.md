@@ -12,6 +12,8 @@ The basic `docker-compose.yml` file configures and runs separate Apache, PHP-FPM
 
 Thus, with minimal Docker experience, it is easy to reconfigure an environment to use Postgres, or Nginx if desired.
 
+Check out the `use-nginx` branch of this repo for a boilerplate that uses Nginx instead of Apache.
+
 ## Motivation
 
 I didn't want to get into highly bespoke or custom image builds. I've always found they're not worth the effort. Environments and technologies change too frequently, and I don't have time to maintain them. I wanted a 'stock' environment that would be easy to update and maintain, and that could be added to existing projects and modified per-project as and when required.
