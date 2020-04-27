@@ -13,3 +13,5 @@ RUN docker-php-ext-install mysqli pdo_mysql zip
 RUN apk add --no-cache imagemagick-dev imagemagick \
     && printf "\n" | pecl install imagick \
     && docker-php-ext-enable imagick
+
+COPY ./conf.d/*.ini /usr/local/etc/php/conf.d/
