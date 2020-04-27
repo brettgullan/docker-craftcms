@@ -14,9 +14,9 @@ Thus, with minimal Docker experience, it is easy to reconfigure an environment t
 
 ## Motivation
 
-I didn't want to get into highly bespoke or custom image builds. I've always found they're not worth the effort. Environments and technologies change to frequently, and I don't have time to maintain them. I wanted a 'stock' environment that would be easy to update and maintain, and that could be added to existing projects and modified per-project as and when required.
+I didn't want to get into highly bespoke or custom image builds. I've always found they're not worth the effort. Environments and technologies change too frequently, and I don't have time to maintain them. I wanted a 'stock' environment that would be easy to update and maintain, and that could be added to existing projects and modified per-project as and when required.
 
-I'm not overly concerned about maintaining production fidelity -- there are simply far too many possibilities to cover. My focus is simply to create a development environment that will run Craft CMS. That said, in my experience PHP is fairly robust, minor version differences are rarely the cause of issues between environments. So this stack should serve pretty well to be getting started with.
+I'm not overly concerned about maintaining production fidelity -- there are simply far too many possibilities to cover. My focus is simply to create a development environment that will run Craft CMS. That said, in my experience PHP is fairly robust. Minor version differences are rarely the cause of issues between environments. So this stack should serve pretty well to be getting started with.
 
 
 # HOW TO USE
