@@ -2,15 +2,15 @@
 
 This repo provides a basic 'drop-in' web development runtime for Craft CMS.
 
-It is not intended to provide a production-quality environment, it does not download or install Craft CMS, nor install or update dependencies, back up your database or any other bells and whistles.
+It is not intended to provide a production-quality environment, it does not download or install Craft CMS, nor install or update plugins or dependencies, back up your database or any other bells and whistles.
 
 ## So what does it do?
 
 The idea behind this boilerplate is to provide a minimal, but flexible, stack for running a local Craft CMS development environment. Web server, PHP and database.
 
-The basic `docker-compose.yml` file configures and runs separate Apache, PHP-FPM and MySQL services.
+The basic `docker-compose.yml` file configures and runs separate Apache, PHP-FPM and MySQL services, using minimal defaults and volume mappings. Just enough to get you going.
 
-Thus, with minimal Docker experience, it is easy to reconfigure an environment to use Postgres, or Nginx if desired.
+Thus, with minimal Docker experience, it is easy to reconfigure an environment to use Postgres, or Nginx if desired. Or to add Redis support or whatever else you might need.
 
 Check out the `use-nginx` branch of this repo for a boilerplate that uses Nginx instead of Apache.
 
