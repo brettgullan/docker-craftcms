@@ -38,7 +38,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=rootpassword
     volumes:
-      - ./database:/var/lib/mysql
+      - ./database:/var/lib/mysql:delegated
     container_name: db
 
 networks:
