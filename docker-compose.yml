@@ -1,17 +1,6 @@
 version: "3.2"
 
 services:
-  php:
-    build: 
-      context: './docker/php/'
-      args:
-        PHP_VERSION: ${PHP_VERSION}
-    networks:
-      - backend
-    volumes:
-      - ./:/var/www/
-    container_name: php
-
   apache:
     build:
       context: './docker/apache/'
@@ -24,13 +13,24 @@ services:
       - frontend
       - backend
     ports:
-      - "81:80"
+      - "80:80"
     volumes:
       - ./web:/var/www/web
     container_name: apache
 
+  php:
+    build: 
+      context: './docker/php/'
+      args:
+        PHP_VERSION: ${PHP_VERSION}
+    networks:
+      - backend
+    volumes:
+      - ./:/var/www/
+    container_name: php
+
   mysql:
-    image: mysql:${MYSQL_VERSION:-latest}
+    image: mariadb:${MYSQL_VERSION:-latest}
     networks:
       - backend
     ports:
