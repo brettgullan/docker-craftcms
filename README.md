@@ -40,6 +40,28 @@ Now you should be ready to go. Just run the following from your terminal:
 $ docker-compose up
 ```
 
+## Use nginx instead of Apache
+
+To use nginx instead of Apache, replace the `apache` service definition in `docker-compose.yml` with the following:
+```yaml
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./:/var/www/
+    links:
+      - php
+    container_name: nginx
+```
+
 
 ## Docker-Compose configuration
 
