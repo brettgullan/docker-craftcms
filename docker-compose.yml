@@ -36,7 +36,7 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
     volumes:
       - ./database:/var/lib/mysql:delegated
     container_name: db
