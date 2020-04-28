@@ -30,7 +30,51 @@ If cloning, delete `.git` directory, then run `git init`.
 
 To use this boilerplate with an existing Craft CMS configuraiton, clone into a temporary directory, then copy the `docker` directory and `docker-compose.yml` files into your project.
 
+Easiest way to do this is via terminal, from within the cloned `docker-craftcms` directory issue:
+
+```shell
+$ cp -r ./docker* <path-to-destination-directory>
+```
+
 Create a `database` directory in the root of your project.
+
+```shell
+$ mkdir database
+```
+
+This is used to store the internal database data files (used by MySQL or Postgres) from within the Docker container. It allows the database to persist across Docker restarts. Otherwise, any changes to your Craft database tables would be lost.
+
+To populate the database instance with an existing database dump, add the following line to your `docker-compose.yml` in the database `volumes` configuration:
+
+```yaml
+    - ./sql:/docker-entrypoint-initdb.d
+```
+
+Where `./sql` is the path to a project directory that contains the database dump file(s).  
+Any `.sql` or `.zip` files (containing `.sql` files) will be processed alphabetically and imported into your database.  
+Note this only occurs on container initialization. 
+
+Your database configuration should look like this:
+
+```yaml
+  mysql:
+    image: mariadb:${MYSQL_VERSION:-latest}
+    networks:
+      - backend
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    volumes:
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/custom.cnf
+      - ./database:/var/lib/mysql:delegated
+      - ./sql:/docker-entrypoint-initdb.d
+    container_name: db
+```
+
 
 Copy any relevant environment variables from the boilerplate `.env` file to your project's.
 
@@ -40,7 +84,18 @@ Now you should be ready to go. Just run the following from your terminal:
 $ docker-compose up
 ```
 
-## Use Nginx instead of Apache
+## Docker-Compose configuration
+
+We mount each of the Craft CMS directories into the `php` 
+We map the entire `./` directory to `/var/www` in both the `apache` and `php` environments.
+
+We also modify the _default_ web directory from `/var/www/html` to `/var/www/web`, simply to be consistent with out-of-the-box Craft CMS conventions.
+
+We expose the default MySQL database port `3306` so you can connect directly to the running database instance using your favourite database management tool.
+
+## TIPS, TRICKS & GOTCHAS
+
+## Using Nginx instead of Apache
 
 To use Nginx instead of Apache, replace the `apache` service definition in `docker-compose.yml` with the following:
 ```yaml
@@ -56,21 +111,12 @@ To use Nginx instead of Apache, replace the `apache` service definition in `dock
       - backend
     volumes:
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./:/var/www/
+      - .env:/var/www/.env
+      - ./web:/var/www/web
     links:
       - php
     container_name: nginx
 ```
-
-
-## Docker-Compose configuration
-
-We map the entire `./` directory to `/var/www` in both the `apache` and `php` environments.
-We also modify the _default_ web directory from `/var/www/html` to `/var/www/web`, simply to be consistent with out-of-the-box Craft CMS conventions.
-
-We expose the default MySQL database port `3306` so you can connect directly to the running database instance using your favourite database management tool.
-
-## TIPS, TRICKS & GOTCHAS
 
 ## Database
 When connecting to the database from within the Docker environment, use the Docker **service name** defined in `docker-compose.yml` -- i.e. `mysql`, not the usual `localhost` or `127.0.0.1`.
@@ -83,6 +129,15 @@ When you really, really need to shut everything down ...
   docker-compose kill
   docker-compose rm -f
 ```
+
+# LIMITATIONS
+
+Currently **does not support** database backups from Craft Control Panel.
+
+# TODO
+
+Add database backup capabilities to resolve limitation above. i.e.: install mysql client binaries.  
+@see https://github.com/craftcms/cms/issues/2364
 
 # REFERENCES
 
