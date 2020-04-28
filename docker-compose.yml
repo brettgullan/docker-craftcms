@@ -45,8 +45,12 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/custom.cnf
       - ./database:/var/lib/mysql:delegated
     container_name: db
 
