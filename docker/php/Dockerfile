@@ -29,6 +29,6 @@ RUN apk add --no-cache imagemagick-dev imagemagick \
     && docker-php-ext-enable imagick
 
 # Install MySQL client binaries -- required for Craft CMS database backup
-RUN apk add mysql-client
+RUN apk --no-cache add mysql-client
 
 COPY ./conf.d/*.ini /usr/local/etc/php/conf.d/
