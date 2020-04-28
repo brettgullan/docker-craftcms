@@ -130,14 +130,12 @@ When you really, really need to shut everything down ...
   docker-compose rm -f
 ```
 
-# LIMITATIONS
-
-Currently **does not support** database backups from Craft Control Panel.
-
 # TODO
 
-Add database backup capabilities to resolve limitation above. i.e.: install mysql client binaries.  
-@see https://github.com/craftcms/cms/issues/2364
+Add Redis support
+Additional helper scripts:  
+ * To configure project;
+ * To initialize database (from arbitrary .sql file)
 
 # REFERENCES
 
